@@ -2,7 +2,7 @@ import {HashRouter,Route,Switch} from 'react-router-dom';
 import React from 'react';
 
 import {Home} from './components/Home';
-import {NotesContainer} from './components/NotesContainer'
+import {MainContainer} from './components/NotesContainer'
 
 
 
@@ -12,7 +12,7 @@ const Router = ()=>{
             <Switch>
 
             <Route path='/' exact component={Home}/>
-            <Route path='/notes' exact component={NotesContainer}/>
+            <Route path='/notes' exact component={MainContainer}/>
             </Switch>
         </HashRouter>
     )

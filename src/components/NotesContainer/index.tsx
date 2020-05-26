@@ -1,14 +1,13 @@
 import React ,{useState}from 'react';
-import {SearchBar} from './SearchBar';
-import {SideBar} from './SideBar';
 import {useNotes} from '../../store'
 import styled from 'styled-components';
 import tw from 'tailwind.macro';
+import { NotesContainer } from './NotesContainer';
 
 
 
 const MasterPasswordDialog = styled.div.attrs({
-    className:'flex flex-col h-screen bg-blue-100 items-center justify-center ' ,})`
+    className:  `flex flex-col h-screen bg-blue-100 items-center justify-center`  ,})`
     & {
         div {
             ${tw `border rounded-md shadow-md bg-white p-4 z-100`}
@@ -31,12 +30,19 @@ const MasterPasswordDialog = styled.div.attrs({
 
 
 
-export const NotesContainer = ()=>{
-    let {state,addNote,updateSecret,} =useNotes();
-    
-    const [secret,setSecret] = useState('')
-    const [note,setNote] = useState('')
 
+export const MainContainer = ()=>{
+    let notesState =useNotes();
+    let {updateSecret,state}  = notesState;
+    // let {secret}=state; 
+    const [secretText,setSecret] = useState('')
+
+    // useEffect(()=>{
+    //     if(secretText!==''){
+    //         updateSecret(secretText);
+    //     }
+    // },[updateSecret,secretText])
+    // [secret,updateSecret])
 
 
     return (
@@ -45,18 +51,9 @@ export const NotesContainer = ()=>{
                 state.secret?(
                 
                 <div>
-                <SearchBar/>
-            <SideBar/>
-            <div className='container'>
-            <input type='text' value={note} onChange={(e)=>setNote(e.target?.value)}/>
-            <button onClick={()=>{addNote({id:1,title:note,content:note,synced:false,deleted:false,createdOn:Date.now(),updatedOn:null,archived:false,tags:[]})}}>Save</button>
-                {
-                    state.AllNotes.map(note=>{
-                        return <h4>{note.title}</h4>
-                    })
-                }
+             <NotesContainer {...notesState}/>
+                
             </div>
-        </div>
     ):(
         <MasterPasswordDialog>
 
@@ -65,8 +62,8 @@ export const NotesContainer = ()=>{
             <h6>Make sure you remember this. Incase you lose it, you won't be able to access your notes.</h6>
             <form>
 
-            <input type='password' value={secret} onChange={(e)=>setSecret(e.target?.value)}/>
-            <button type='button' onClick={()=>{updateSecret(secret)}} >Save</button>
+            <input type='password' value={secretText} onChange={(e)=>setSecret(e.target?.value)}/>
+            <button type='button' onClick={()=>{updateSecret(secretText)}} >Save</button>
             </form>
             </div>
         </MasterPasswordDialog>

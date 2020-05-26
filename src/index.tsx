@@ -5,10 +5,13 @@ import './index.css';
 import "./assets/styles.css"
 import * as serviceWorker from './serviceWorker';
 import Router from './router';
+import { NotesProvider } from './store';
 
 ReactDOM.render(
   <React.StrictMode>
+    <NotesProvider>
     <Router />
+    </NotesProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

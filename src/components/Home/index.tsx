@@ -1,14 +1,13 @@
 import React from 'react';
 import {Link ,Redirect} from 'react-router-dom';
-import { useNotes } from '../../store';
+import { checkIfNotesExists } from '../../store';
 
 
 
 export const Home =()=>{
 
     //check if notes ever used in this browser
-    let {state} = useNotes();
-    if (state.notesExists)
+    if (checkIfNotesExists())
         return <Redirect to='/notes'/>
     
 
